@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 const url = "/video/big_buck_bunny.mp4";
 const spread = 100;
-const fps = 1;
+const fps = 30;
 export const VideoAmbient = () => {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -19,8 +19,8 @@ export const VideoAmbient = () => {
 				video,
 				0,
 				0,
-				video.videoWidth,
-				video.videoHeight,
+				10, //video.videoWidth,
+				6, //video.videoHeight,
 				0,
 				0,
 				canvas.width,
@@ -30,8 +30,8 @@ export const VideoAmbient = () => {
 		};
 
 		const handlePlay = () => {
-			canvas.width = video.videoWidth;
-			canvas.height = video.videoHeight;
+			canvas.width = video.videoWidth + spread * 2;
+			canvas.height = video.videoHeight + spread * 2;
 			drawFrame();
 		};
 
@@ -52,7 +52,7 @@ export const VideoAmbient = () => {
 					}}
 				>
 					<video
-						className=" z-[11]"
+						className=" z-[11] rounded-2xl"
 						ref={videoRef}
 						src={url}
 						controls
@@ -62,8 +62,10 @@ export const VideoAmbient = () => {
 						playsInline
 					/>
 					<canvas
+						width="10"
+						height="6"
 						ref={canvasRef}
-						className="absolute w-[100%] h-[100%] z-[10] blur-[200px] brightness-75 contrast-125 saturate-50 transition duration-1000 ease-in-out"
+						className="absolute w-[100%] h-[100%] z-[10] blur-[100px] brightness-75 contrast-125 saturate-50 transition duration-1000 ease-in-out"
 					/>
 				</div>
 			</div>
